@@ -5,6 +5,7 @@
 This Streamlit app allows users to generate Data Flow Diagrams (DFD) from textual descriptions using the [`data-flow-diagram`](https://github.com/pbauermeister/dfd) command-line tool.
 
 ## Features
+
 - Enter DFD text manually in a text area.
 - Generate a DFD diagram in various formats (`svg`, `png`, `pdf`, `jpg`).
 - Use `Cmd+Enter` or `Ctrl+Enter` to generate the DFD automatically.
@@ -32,7 +33,6 @@ If you are using Debian-based systems, install the following dependencies:
 ```sh
 apt install graphviz fonts-ipaexfont
 ```
-
 
 ## Running the App
 
@@ -62,7 +62,7 @@ For details on the DFD syntax, refer to the [DFD Syntax Documentation](https://g
 
 You can pre-load DFD text using a URL parameter:
 
-```
+```text
 https://your-app-url/?text=encoded_dfd_text
 ```
 
@@ -70,7 +70,7 @@ Replace `encoded_dfd_text` with your DFD text URL-encoded.
 
 ## Example DFD Input
 
-```
+```dfd
 process Process1
 process Process2
 Process1 -> Process2 Data Transfer
