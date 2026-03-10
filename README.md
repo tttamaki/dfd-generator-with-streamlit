@@ -42,6 +42,28 @@ To start the Streamlit app, run:
 streamlit run streamlit_app.py
 ```
 
+## Run with Docker
+
+Build the image:
+
+```sh
+docker build -t tttamaki/dfd-generator .
+```
+
+Start the app:
+
+```sh
+docker run -d -p 8080:8080 tttamaki/dfd-generator
+```
+
+Then open `http://localhost:8080` in your browser.
+
+If you want generated share URLs to use a custom domain, set `BASE_URL`:
+
+```sh
+docker run -d -p 8080:8080 -e BASE_URL="https://your-domain.example" tttamaki/dfd-generator
+```
+
 ## Usage
 
 1. **Enter DFD text**: Write your DFD structure in the text area.
