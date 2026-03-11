@@ -1,6 +1,6 @@
 # DFD Generator with Streamlit
 
-[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://data-flow-diagram-online.streamlit.app/)
+[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://dfd-generator.streamlit.app/)
 
 This Streamlit app allows users to generate Data Flow Diagrams (DFD) from textual descriptions using the [`data-flow-diagram`](https://github.com/pbauermeister/dfd) command-line tool.
 
@@ -41,6 +41,38 @@ To start the Streamlit app, run:
 ```sh
 streamlit run streamlit_app.py
 ```
+
+## Run with Docker
+
+Start the app:
+
+```sh
+docker run -d -p 8080:8080 tttamaki/dfd-generator
+```
+
+Then open <http://localhost:8080> in your browser.
+
+Build the image:
+
+```sh
+docker build -t tttamaki/dfd-generator .
+```
+
+### BASE_URL
+
+If you want generated share URLs to use a custom domain, set `BASE_URL`:
+
+```sh
+docker run -d -p 8080:8080 -e BASE_URL="https://your.example.app/" tttamaki/dfd-generator
+```
+
+On streamlit.io, set Secrets:
+
+```text
+BASE_URL = "https://your.example.app/"
+```
+
+Then open <http://your.example.app/> in your browser.
 
 ## Usage
 

@@ -2,7 +2,6 @@ import subprocess
 import tempfile
 import os
 import streamlit as st
-import urllib.parse
 import bz2
 
 
@@ -128,23 +127,48 @@ def display_generated_dfd():
         st.code(st.session_state.generated_url, language="text")
 
 
+def resolve_base_url():
+    """
+    Resolves the base URL used for shareable links.
+
+    Priority:
+    1. BASE_URL environment variable
+    2. Streamlit secrets BASE_URL
+    3. Local Docker-friendly default
+    """
+    env_base_url = os.getenv("BASE_URL")
+    if env_base_url:
+        return env_base_url
+
+    try:
+        secret_base_url = st.secrets.get("BASE_URL")
+        if secret_base_url:
+            return secret_base_url
+    except Exception:
+        # Streamlit raises when no secrets.toml exists in runtime.
+        pass
+
+    return "http://localhost:8080"
+
+
 def main():
     """
     Main function to render the Streamlit UI and handle user interactions.
     """
     st.title("DFD Generator with Streamlit")
 
-    st.session_state.BASE_URL = st.secrets["BASE_URL"] if "BASE_URL" in st.secrets else "https://this.app.url/"
+    st.session_state.BASE_URL = resolve_base_url()
 
     initialize_dfd_text()
 
     st.selectbox(
         "Select output format:",
-        ["svg", "png", "jpg"], index=0, key="output_format")
+        ["png", "jpg", "svg"], index=0, key="output_format")
 
     st.text_area(
         "Enter DFD text (see [syntax document](https://github.com/pbauermeister/dfd/blob/main/doc/README.md)):",
-        st.session_state.dfd_text,
+        height=500,
+        placeholder="process Process1\nprocess Process2\nProcess1 -> Process2 Data Transfer",
         key="dfd_text",
         on_change=generate_dfd)
 
