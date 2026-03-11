@@ -163,11 +163,13 @@ def main():
 
     st.selectbox(
         "Select output format:",
-        ["svg", "png", "jpg"], index=0, key="output_format")
+        ["png", "jpg", "svg"], index=0, key="output_format")
 
     st.text_area(
         "Enter DFD text (see [syntax document](https://github.com/pbauermeister/dfd/blob/main/doc/README.md)):",
         st.session_state.dfd_text,
+        height=500,
+        placeholder="process Process1\nprocess Process2\nProcess1 -> Process2 Data Transfer",
         key="dfd_text",
         on_change=generate_dfd)
 
